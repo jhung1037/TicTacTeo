@@ -13,18 +13,21 @@ class Game:
             else:
                 print(v,"|", end=' ')
 
+    def check_vaild(self, move):
+        while move<1 or move>9 or not isinstance(self.value[move-1], int):
+            move = int(input(f"Invalid move, try again: "))
+        return True
+
+    def round(self, player):
+        game.print_board()
+        next_move = int(input(f"Next move for {player}: "))
+        if game.check_vaild(next_move):
+            game.value[next_move-1] = player
 
 class Player:
 
     def __init__(self, sign):
         self.sign = sign
-    
-    def play(self, game):
-        move = int(input(f"Next move for {self.sign}: "))
-        while move<1 or move>9 or not isinstance(game.value[move-1], int):
-            move = int(input(f"Invalid move, try again: "))
-        game.value[move-1] = self.sign
-        return move
     
 
 if __name__ == "__main__":
@@ -39,10 +42,8 @@ if __name__ == "__main__":
         X = Player("X")
 
     while True:
-        game.print_board()
-        next_move = O.play(game)
-        game.print_board()
-        next_move = X.play(game)
+        game.round("O")
+        game.round("X")
 
 
     
