@@ -1,8 +1,7 @@
 import player
 
-
 class Game:
-    
+
     def __init__(self):
         self.turns = 0
         self.square_display = [" " for i in range(1,10)]
@@ -48,37 +47,43 @@ class Game:
                 print("Draw...")
                 exit()
 
+
+def choose_level(sign):
+    cursor_row = 3 if sign == "X" else 2
+
+    level_mapping = {"1": "easy", "2": "hard"}
+    level = input("Computer level? 1.Easy 2.Hard ")
+
+    while level not in level_mapping:
+        level = input(f"\033[{cursor_row}H\033[JInvalid Selection...\nComputer level? 1.Easy 2.Hard ")
+    
+    cursor_row -= 1
+    print(f"\033[{cursor_row}H\033J{sign} = 1.Human 2.Computer? 2.Computer({level_mapping[level]})")
+    return player.Computer_Easy(sign) if level == "1" else player.Computer_Hard(sign)
+
+def register_player(sign):
+    if sign == "X":
+        cursor_row = 2
+        print(f"\033[{cursor_row}H\033[J", end = '')
+    else:
+        cursor_row = 1
+
+    type_mapping = {"1": "1.Human", "2": "2.Computer"}
+    player_type = input(f"{sign} = 1.Human 2.Computer? ")
+
+    while player_type not in type_mapping:
+        player_type = input(f"\033[{cursor_row}H\033[JRegister Failed...\n{sign} = 1.Human 2.Computer? ")
+
+    print(f"\033[{cursor_row}H\033[J{sign} = 1.Human 2.Computer? {type_mapping[player_type]}")
+    return player.Human(sign) if player_type == "1" else choose_level(sign)
+    
+
 if __name__ == "__main__":
     print("\033[H\033[J", end = '')
     game = Game()
 
-
-    # O = input("O = 1.Human 2.AI? ")
-    # while True:
-    #     if O == "1" or O == "1." or O.upper() == "HUMAN" or O.upper() == "1.HUMAN":
-    #         print("\033[H\033[JO = 1.Human 2.AI? 1.Human")
-    #         O = player.Human("O")
-    #         break
-    #     elif O == "2" or O == "2." or O.upper() == "AI"  or O.upper() == "2.AI":
-    #         print("\033[H\033[JO = 1.Human 2.AI? 2.AI")
-    #         O = player.AI("O")
-    #         break
-    #     O = input("\033[H\033[JRegister Failed...\nO = 1.Human 2.AI? ")
-
-    # X = input("X = 1.Human 2.AI? ")
-    # while True:
-    #     if X == "1" or X == "1." or X.upper() == "HUMAN" or X.upper() == "1.HUMAN":
-    #         print("\033[2;1H\033[JO = 1.Human 2.AI? 1.Human")
-    #         X = player.Human("X")
-    #         break
-    #     elif X == "2" or X == "2." or X.upper() == "AI"  or X.upper() == "2.AI":
-    #         print("\033[2;1H\033[JO = 1.Human 2.AI? 2.AI")
-    #         X = player.AI("X")
-    #         break
-    #     X = input("\033[2;1H\033[JRegister Failed...\nX = 1.Human 2.AI? ")
-
-    O = player.AI("O")
-    X = player.AI("X")
+    O = register_player("O")
+    X = register_player("X")
 
     while True:
         game.play(O)
