@@ -6,7 +6,6 @@ class Game:
         self.turns = 0
         self.square_display = [" " for _ in range(1,10)]
         self.available_squares = [i for i in range(9)]
-        self.winner = None
     
     def print_board(self):
         print("\033[3;1H\033[J\n1 | 2 | 3\t", end = '')
