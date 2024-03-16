@@ -15,11 +15,13 @@ The unbeatable AI prioritizes avoiding "Draw" circumstances. Consequently, its m
 ### Example:
 1. Humans often start with the middle square, but the minimax algorithm may begin with corner squares to avoid the inevitable "Draw" outcome.
 2. Humans usually won't go with the most upper left square in this case; however, the minimax algorithm suggested there is no difference.
-     |   |            O |   |
-   - + - + -          - + - + -
-     | O |      ->      | O |   
-   - + - + -          - + - + -
-     |   | X            |   | X
+<pre>
+     |   |           O |   |
+   - + - + -         - + - + -
+     | O |      ->     | O |   
+   - + - + -         - + - + -
+     |   | X           |   | X
+</pre>
 
 ### Optimization:
 - Introduced the sum_score variable to calculate the best overall score of possibility once two or more squares were seen as having the same winning possibility.
