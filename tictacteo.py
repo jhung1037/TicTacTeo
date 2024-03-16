@@ -1,12 +1,13 @@
 import player
 
+
 class Game:
 
     def __init__(self):
         self.turns = 0
         self.square_display = [" " for _ in range(1,10)]
         self.available_squares = [i for i in range(9)]
-    
+
     def print_board(self):
         print("\033[3;1H\033[J\n1 | 2 | 3\t", end = '')
         for i,s in enumerate(self.square_display):
@@ -57,7 +58,7 @@ def choose_level(sign):
 
     while level not in level_mapping:
         level = input(f"\033[{cursor_row}H\033[JInvalid Selection...\nComputer level? 1.Easy 2.Hard ")
-    
+
     cursor_row -= 1
     print(f"\033[{cursor_row}H\033J{sign} = 1.Human 2.Computer? 2.Computer({level_mapping[level]})")
     return player.Computer_Easy(sign) if level == "1" else player.Computer_Hard(sign)
@@ -77,7 +78,7 @@ def register_player(sign):
 
     print(f"\033[{cursor_row}H\033[J{sign} = 1.Human 2.Computer? {type_mapping[player_type]}")
     return player.Human(sign) if player_type == "1" else choose_level(sign)
-    
+
 
 if __name__ == "__main__":
     print("\033[H\033[J", end = '')
