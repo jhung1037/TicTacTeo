@@ -5,7 +5,7 @@ class Game:
 
     def __init__(self):
         self.turns = 0
-        self.square_display = [" " for i in range(1,10)]
+        self.square_display = [" " for _ in range(1,10)]
         self.available_squares = [i for i in range(9)]
 
     def print_board(self):
@@ -30,19 +30,20 @@ class Game:
         return move-1 in self.available_squares
 
     def check_winner(self, player, move):
+        if not move: return False
         win_patterns = [[0, 1, 2], [0, 3, 6], [0, 4, 8], [1, 4, 7], [2, 4, 6], [2, 5, 8], [3, 4, 5], [6, 7, 8]]
         possible_patterns = [pattern for pattern in win_patterns if move in pattern]
-        if any(all(self.square_display[i]==player.sign for i in pattern) for pattern in possible_patterns):
-            self.print_board()
-            print(f"{player.sign} WINS in {self.turns} turns!!!")
-            exit()
+        return player if any(all(self.square_display[i]==player for i in pattern) for pattern in possible_patterns) else False
 
     def play(self, player):
         self.print_board()
         move = player.make_move(self)
         self.turns += 1
         if self.turns >= 5:
-            self.check_winner(player, move)
+            if self.check_winner(player.sign, move):
+                self.print_board()
+                print(f"{player.sign} WINS in {self.turns} turns!!!")
+                exit()
             if self.turns >= 9:
                 self.print_board()
                 print("Draw...")

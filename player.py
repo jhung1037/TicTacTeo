@@ -74,7 +74,6 @@ class Computer_Hard(Computer):
         moves = []
 
         for possible_move in current.available_squares:
-
             current.square_display[possible_move] = player
             undo_position = current.available_squares.index(possible_move)
             current.available_squares.remove(possible_move)
