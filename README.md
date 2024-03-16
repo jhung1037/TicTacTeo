@@ -12,7 +12,7 @@ A clean terminal interface Tic Tac Toe game where you can play against your frie
 ### Discovery:
 The unbeatable AI prioritizes avoiding "Draw" circumstances. Consequently, its move selection may differ from human intuition.
 
-###Example:
+### Example:
 1. Humans often start with the middle square, but the minimax algorithm may begin with corner squares to avoid the inevitable "Draw" outcome.
 2. Humans usually won't go with the most upper left square in this case; however, the minimax algorithm suggested there is no difference.
      |   |            O |   |
